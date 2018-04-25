@@ -1,0 +1,12 @@
+edgeproviderimage:
+  repository: avranju/edgeprovider
+  tag: v0.1.2
+  pullPolicy: Always
+  port: 5000
+  hubcs: <IoT Hub owner connection string here>
+vkimage:
+  repository: microsoft/virtual-kubelet
+  tag: latest
+  pullPolicy: Always
+env:
+  nodeName: edge-kubelet

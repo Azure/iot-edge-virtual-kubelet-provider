@@ -1,0 +1,18 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp2.0</TargetFramework>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="KubernetesClient" Version="0.3.0-beta" />
+    <PackageReference Include="Microsoft.Azure.Devices" Version="1.5.0-preview-001" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Microsoft.Azure.VirtualKubelet.Types\Microsoft.Azure.VirtualKubelet.Types.csproj" />
+    <ProjectReference Include="..\Microsoft.Azure.VirtualKubelet.Server\Microsoft.Azure.VirtualKubelet.Server.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="./Dockerfile" CopyToPublishDirectory="Always" />
+  </ItemGroup>
+
+</Project>

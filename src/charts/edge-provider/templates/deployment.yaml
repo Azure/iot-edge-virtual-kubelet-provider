@@ -1,0 +1,45 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: {{ template "edge-provider.fullname" . }}
+  labels:
+    app: {{ template "edge-provider.name" . }}
+    chart: {{ .Chart.Name }}-{{ .Chart.Version | replace "+" "_" }}
+    release: {{ .Release.Name }}
+    heritage: {{ .Release.Service }}
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: {{ template "edge-provider.name" . }}
+  template:
+    metadata:
+      labels:
+        app: {{ template "edge-provider.name" . }}
+        release: {{ .Release.Name }}
+    spec:
+      containers:
+        - name: edgeprovider
+          image: "{{ .Values.edgeproviderimage.repository }}:{{ .Values.edgeproviderimage.tag }}"
+          imagePullPolicy: {{ .Values.edgeproviderimage.pullPolicy }}
+          ports:
+            - containerPort: {{ .Values.edgeproviderimage.port }}
+          env:
+            - name: HUB_CONNECTION_STRING
+              value: {{ .Values.edgeproviderimage.hubcs }}
+          livenessProbe:
+            httpGet:
+              path: /
+              port: {{ .Values.edgeproviderimage.port }}
+          readinessProbe:
+            httpGet:
+              path: /
+              port: {{ .Values.edgeproviderimage.port }}
+        - name: virtualkubelet
+          image: "{{ .Values.vkimage.repository }}:{{ .Values.vkimage.tag }}"
+          imagePullPolicy: {{ .Values.vkimage.pullPolicy }}
+          env:
+            - name: WEB_ENDPOINT_URL
+              value: http://localhost:{{ .Values.edgeproviderimage.port }}
+          command: ["virtual-kubelet"]
+          args: ["--provider", "web", "--nodename", {{ default "web-provider" .Values.env.nodeName | quote }}]

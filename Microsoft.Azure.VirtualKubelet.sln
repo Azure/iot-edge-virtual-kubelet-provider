@@ -1,0 +1,71 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.27130.2010
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Microsoft.Azure.VirtualKubelet.Server", "src\Microsoft.Azure.VirtualKubelet.Server\Microsoft.Azure.VirtualKubelet.Server.csproj", "{CAD056E4-A6D6-4DE5-8F30-79E8AFD09E8A}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{44515875-8D7C-409C-ADE8-60DFA8C59C59}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Microsoft.Azure.VirtualKubelet.Types", "src\Microsoft.Azure.VirtualKubelet.Types\Microsoft.Azure.VirtualKubelet.Types.csproj", "{1A390264-373D-414F-8BB0-745D639DAAAD}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Microsoft.Azure.VirtualKubelet.Edge.Provider", "src\Microsoft.Azure.VirtualKubelet.Edge.Provider\Microsoft.Azure.VirtualKubelet.Edge.Provider.csproj", "{5167D58B-9F7F-42AD-9114-A0F8E747C82D}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+		Debug|x64 = Debug|x64
+		Debug|x86 = Debug|x86
+		Release|x64 = Release|x64
+		Release|x86 = Release|x86
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{CAD056E4-A6D6-4DE5-8F30-79E8AFD09E8A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CAD056E4-A6D6-4DE5-8F30-79E8AFD09E8A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CAD056E4-A6D6-4DE5-8F30-79E8AFD09E8A}.Debug|x64.ActiveCfg = Debug|x64
+		{CAD056E4-A6D6-4DE5-8F30-79E8AFD09E8A}.Debug|x64.Build.0 = Debug|x64
+		{CAD056E4-A6D6-4DE5-8F30-79E8AFD09E8A}.Debug|x86.ActiveCfg = Debug|x86
+		{CAD056E4-A6D6-4DE5-8F30-79E8AFD09E8A}.Debug|x86.Build.0 = Debug|x86
+		{CAD056E4-A6D6-4DE5-8F30-79E8AFD09E8A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CAD056E4-A6D6-4DE5-8F30-79E8AFD09E8A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CAD056E4-A6D6-4DE5-8F30-79E8AFD09E8A}.Release|x64.ActiveCfg = Release|x64
+		{CAD056E4-A6D6-4DE5-8F30-79E8AFD09E8A}.Release|x64.Build.0 = Release|x64
+		{CAD056E4-A6D6-4DE5-8F30-79E8AFD09E8A}.Release|x86.ActiveCfg = Release|x86
+		{CAD056E4-A6D6-4DE5-8F30-79E8AFD09E8A}.Release|x86.Build.0 = Release|x86
+		{1A390264-373D-414F-8BB0-745D639DAAAD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1A390264-373D-414F-8BB0-745D639DAAAD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1A390264-373D-414F-8BB0-745D639DAAAD}.Debug|x64.ActiveCfg = Debug|x64
+		{1A390264-373D-414F-8BB0-745D639DAAAD}.Debug|x64.Build.0 = Debug|x64
+		{1A390264-373D-414F-8BB0-745D639DAAAD}.Debug|x86.ActiveCfg = Debug|x86
+		{1A390264-373D-414F-8BB0-745D639DAAAD}.Debug|x86.Build.0 = Debug|x86
+		{1A390264-373D-414F-8BB0-745D639DAAAD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1A390264-373D-414F-8BB0-745D639DAAAD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1A390264-373D-414F-8BB0-745D639DAAAD}.Release|x64.ActiveCfg = Release|x64
+		{1A390264-373D-414F-8BB0-745D639DAAAD}.Release|x64.Build.0 = Release|x64
+		{1A390264-373D-414F-8BB0-745D639DAAAD}.Release|x86.ActiveCfg = Release|x86
+		{1A390264-373D-414F-8BB0-745D639DAAAD}.Release|x86.Build.0 = Release|x86
+		{5167D58B-9F7F-42AD-9114-A0F8E747C82D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5167D58B-9F7F-42AD-9114-A0F8E747C82D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5167D58B-9F7F-42AD-9114-A0F8E747C82D}.Debug|x64.ActiveCfg = Debug|x64
+		{5167D58B-9F7F-42AD-9114-A0F8E747C82D}.Debug|x64.Build.0 = Debug|x64
+		{5167D58B-9F7F-42AD-9114-A0F8E747C82D}.Debug|x86.ActiveCfg = Debug|x86
+		{5167D58B-9F7F-42AD-9114-A0F8E747C82D}.Debug|x86.Build.0 = Debug|x86
+		{5167D58B-9F7F-42AD-9114-A0F8E747C82D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5167D58B-9F7F-42AD-9114-A0F8E747C82D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5167D58B-9F7F-42AD-9114-A0F8E747C82D}.Release|x64.ActiveCfg = Release|x64
+		{5167D58B-9F7F-42AD-9114-A0F8E747C82D}.Release|x64.Build.0 = Release|x64
+		{5167D58B-9F7F-42AD-9114-A0F8E747C82D}.Release|x86.ActiveCfg = Release|x86
+		{5167D58B-9F7F-42AD-9114-A0F8E747C82D}.Release|x86.Build.0 = Release|x86
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{1A390264-373D-414F-8BB0-745D639DAAAD} = {44515875-8D7C-409C-ADE8-60DFA8C59C59}
+		{5167D58B-9F7F-42AD-9114-A0F8E747C82D} = {44515875-8D7C-409C-ADE8-60DFA8C59C59}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {D71830F5-3AF5-46B4-8A9E-1DCE4F2253AC}
+	EndGlobalSection
+EndGlobal

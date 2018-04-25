@@ -1,0 +1,15 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "build",
+            "command": "dotnet",
+            "type": "process",
+            "args": [
+                "build",
+                "${workspaceFolder}/src/Microsoft.Azure.VirtualKubelet.Edge.Provider/Microsoft.Azure.VirtualKubelet.Edge.Provider.csproj"
+            ],
+            "problemMatcher": "$msCompile"
+        }
+    ]
+}
