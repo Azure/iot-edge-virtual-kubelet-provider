@@ -3,10 +3,11 @@ edgeproviderimage:
   tag: v0.1.2
   pullPolicy: Always
   port: 5000
-  hubcs: <IoT Hub owner connection string here>
+  secretsStoreName: my-secrets
+  secretKey: hub0-cs
 vkimage:
   repository: microsoft/virtual-kubelet
   tag: latest
   pullPolicy: Always
 env:
-  nodeName: edge-kubelet
+  nodeName: iot-edge-connector-hub0

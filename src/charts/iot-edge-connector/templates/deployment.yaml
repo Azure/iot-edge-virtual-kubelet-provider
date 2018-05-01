@@ -18,6 +18,15 @@ spec:
         app: {{ template "edge-provider.name" . }}
         release: {{ .Release.Name }}
     spec:
+      affinity:
+        nodeAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            nodeSelectorTerms:
+            - matchExpressions:
+              - key: type
+                operator: NotIn
+                values:
+                - virtual-kubelet
       containers:
         - name: edgeprovider
           image: "{{ .Values.edgeproviderimage.repository }}:{{ .Values.edgeproviderimage.tag }}"
@@ -26,7 +35,10 @@ spec:
             - containerPort: {{ .Values.edgeproviderimage.port }}
           env:
             - name: HUB_CONNECTION_STRING
-              value: {{ .Values.edgeproviderimage.hubcs }}
+              valueFrom:
+                secretKeyRef:
+                  name: {{ .Values.edgeproviderimage.secretsStoreName }}
+                  key: {{ .Values.edgeproviderimage.secretKey }}
           livenessProbe:
             httpGet:
               path: /
