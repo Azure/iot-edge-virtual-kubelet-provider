@@ -18,6 +18,10 @@ spec:
         app: {{ template "edge-provider.name" . }}
         release: {{ .Release.Name }}
     spec:
+      #
+      # Prevent the app pods from being scheduled on
+      # a virtual node.
+      #
       affinity:
         nodeAffinity:
           requiredDuringSchedulingIgnoredDuringExecution:
