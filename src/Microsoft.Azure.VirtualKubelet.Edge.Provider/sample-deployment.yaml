@@ -1,0 +1,66 @@
+---
+apiVersion: apps/v1beta2
+kind: Deployment
+metadata:
+  name: tempsensor-deployment 
+spec:
+  selector:
+    matchLabels:
+      app: tempSensor
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: tempSensor
+      annotations:
+        isEdgeDeployment: "true"
+        targetCondition: "tags.building='b43'"
+        priority: "15"
+        loggingOptions: ""
+    spec:
+      containers:
+      - name: tempsensor
+        image: "microsoft/azureiotedge-simulated-temperature-sensor:1.0-preview"
+      nodeSelector:
+        type: virtual-kubelet 
+---
+kind: ConfigMap
+apiVersion: v1
+metadata:
+  name: edgehub
+data:
+  desiredProperties: |
+    {
+      "routes": {
+        "route": "FROM /* INTO $upstream"
+      },
+      "storeAndForwardConfiguration": {
+        "timeToLiveSecs": 7200
+      }
+    }
+---
+kind: ConfigMap
+apiVersion: v1
+metadata:
+  name: tempsensor
+data:
+  status: running
+  restartPolicy: on-unhealthy
+  version: "1.0"
+  createOptions: |
+    {
+      "HostConfig": {
+        "PortBindings": {
+          "27017/tcp": [
+            {
+              "HostPort": "27017"
+            }
+          ]
+        }
+      }
+    }
+  desiredProperties: |
+    {
+      "boo": "bah"
+    }
+---

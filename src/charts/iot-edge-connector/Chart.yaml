@@ -1,0 +1,3 @@
+name: iot-edge-connector
+version: 0.1.0
+description: a Helm chart to install the azure iot edge provider virtual kubelet
