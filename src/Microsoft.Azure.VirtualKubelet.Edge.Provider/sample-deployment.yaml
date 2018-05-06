@@ -2,12 +2,17 @@
 apiVersion: apps/v1beta2
 kind: Deployment
 metadata:
-  name: tempsensor-deployment 
+  name: tempsensor
 spec:
   selector:
     matchLabels:
       app: tempSensor
   replicas: 1
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 0%
+      maxUnavailable: 100%
   template:
     metadata:
       labels:
@@ -18,6 +23,16 @@ spec:
         priority: "15"
         loggingOptions: ""
     spec:
+      affinity:
+        podAntiAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+          - labelSelector:
+              matchExpressions:
+              - key: app
+                operator: In
+                values:
+                - tempSensor
+            topologyKey: "kubernetes.io/hostname"
       containers:
       - name: tempsensor
         image: "microsoft/azureiotedge-simulated-temperature-sensor:1.0-preview"
