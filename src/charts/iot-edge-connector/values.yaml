@@ -1,6 +1,6 @@
 edgeproviderimage:
-  repository: avranju/edgeprovider
-  tag: v0.1.2
+  repository: microsoft/iot-edge-vk-provider
+  tag: latest
   pullPolicy: Always
   port: 5000
   secretsStoreName: my-secrets
