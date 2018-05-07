@@ -44,11 +44,23 @@ namespace Microsoft.Azure.VirtualKubelet.Edge.Provider
 
         public Task<IDictionary<string, string>> CapacityAsync()
         {
+            // Pod anti-affnity isn't working, likely because pod status 
+            // is not correctly reported back from the provider. This 
+            // causes multiple workload pods to be scheduled on the node 
+            // when scaling replicas. 
+            //
+            // Workaround this by setting pods capacity to 3. Two infra
+            // pods are always scheduled on a node, leaving room for only
+            // one workload pod effectively preventing the unwanted pod
+            // scheduling behavior.
+            //
+            // TODO: revisit after fixing pod status reporting.
+            // 
             return Task.FromResult(new Dictionary<string, string>
             {
                 { "cpu", "20" },
                 { "memory", "100Gi" },
-                { "pods", "20" }
+                { "pods", "3" }
             } as IDictionary<string, string>);
         }
 
