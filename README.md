@@ -30,15 +30,18 @@ Kubernetes pod annotations and configmaps are used to encode IoT Edge specific i
 
 * [Helm](https://github.com/kubernetes/helm)
 
+* Clone this repo 
+
 ## Install
 
 1. Create a Kubernetes secrets store to hold the IoT Hub connection string.
+   To find the connection string, navigate to your IoT Hub resource in the Azure portal and click on "Shared access policies" and the "iothubowner" will contain your connection string. 
     ```
     kubectl create secret generic my-secrets \
      --from-literal=hub0-cs='<iot-hub-owner-connection-string>'
     ```
     > Add a new ```--from-literal``` entry if you want to store multiple keys
-
+    
 1. Use [Helm](https://github.com/kubernetes/helm), a Kubernetes package manager, to install the *iot-edge-connector*
     ```
     helm install -n hub0 src/charts/iot-edge-connector
