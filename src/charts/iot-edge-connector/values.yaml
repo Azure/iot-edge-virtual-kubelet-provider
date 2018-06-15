@@ -11,3 +11,4 @@ vkimage:
   pullPolicy: Always
 env:
   nodeName: iot-edge-connector-hub0
+  nodeTaint:
