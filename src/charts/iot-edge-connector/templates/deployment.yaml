@@ -58,4 +58,4 @@ spec:
             - name: WEB_ENDPOINT_URL
               value: http://localhost:{{ .Values.edgeproviderimage.port }}
           command: ["virtual-kubelet"]
-          args: ["--provider", "web", "--nodename", {{ default "web-provider" .Values.env.nodeName | quote }}]
+          args: ["--provider", "web", "--nodename", {{ default "web-provider" .Values.env.nodeName | quote }}, "--taint", {{ default "azure.com/iotedge" .Values.env.nodeTaint | quote }}]
