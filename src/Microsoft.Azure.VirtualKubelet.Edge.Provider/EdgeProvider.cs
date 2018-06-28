@@ -201,7 +201,7 @@ namespace Microsoft.Azure.VirtualKubelet.Edge.Provider
                             RestartPolicy = "always",
                             Settings = new EdgeModuleSettings
                             {
-                                Image = "microsoft/azureiotedge-agent:1.0-preview",
+                                Image = "mcr.microsoft.com/azureiotedge-agent:1.0",
                                 CreateOptions = "{}"
                             }
                         }
@@ -214,7 +214,7 @@ namespace Microsoft.Azure.VirtualKubelet.Edge.Provider
                             RestartPolicy = "always",
                             Settings = new EdgeModuleSettings
                             {
-                                Image = "microsoft/azureiotedge-hub:1.0-preview",
+                                Image = "mcr.microsoft.com/azureiotedge-hub:1.0",
                                 CreateOptions = "{}"
                             }
                         }
