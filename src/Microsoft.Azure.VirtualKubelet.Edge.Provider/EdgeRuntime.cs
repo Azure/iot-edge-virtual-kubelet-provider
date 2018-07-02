@@ -12,6 +12,6 @@ namespace Microsoft.Azure.VirtualKubelet.Edge.Provider
         public string Type => "docker";
 
         [JsonProperty("settings")]
-        public IDictionary<string, string> Settings;
+        public EdgeRuntimeSettings Settings { get; set; }
     }
 }
