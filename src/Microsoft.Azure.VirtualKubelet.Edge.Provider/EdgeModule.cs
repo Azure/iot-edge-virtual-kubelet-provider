@@ -21,5 +21,8 @@ namespace Microsoft.Azure.VirtualKubelet.Edge.Provider
 
         [JsonProperty("settings")]
         public EdgeModuleSettings Settings { get; set; }
+        
+        [JsonProperty("env", NullValueHandling = NullValueHandling.Ignore)]
+        public IDictionary<string, EdgeModuleEnv> Env;
     }
 }
