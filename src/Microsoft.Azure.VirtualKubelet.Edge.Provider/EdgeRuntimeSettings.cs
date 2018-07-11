@@ -14,7 +14,7 @@ namespace Microsoft.Azure.VirtualKubelet.Edge.Provider
         [JsonProperty("loggingOptions")]
         public string LoggingOptions { get; set; }
 
-        [JsonProperty("registryCredentials")]
+        [JsonProperty("registryCredentials", NullValueHandling = NullValueHandling.Ignore)]
         public IDictionary<string, RegistryCredentialsSettings> RegistryCredentials;
     }
 }
