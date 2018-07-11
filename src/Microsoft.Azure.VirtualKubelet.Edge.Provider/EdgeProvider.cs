@@ -97,9 +97,19 @@ namespace Microsoft.Azure.VirtualKubelet.Edge.Provider
             if (configMap != null && configMap.Data.TryGetValue("desiredProperties", out string desiredPropsJson))
             {
                 EdgeAgent edgeAgent2 = JsonConvert.DeserializeObject<EdgeAgent>(desiredPropsJson);
-                if (edgeAgent2.Runtime.Settings.RegistryCredentials != null)
+                if (edgeAgent2.Runtime != null)
                 {
-                    edgeAgent.Runtime.Settings.RegistryCredentials = edgeAgent2.Runtime.Settings.RegistryCredentials;
+                    if (edgeAgent2.Runtime.Settings.RegistryCredentials != null)
+                    {
+                        edgeAgent.Runtime.Settings.RegistryCredentials = edgeAgent2.Runtime.Settings.RegistryCredentials;
+                    }
+                }
+                if (edgeAgent2.SystemModules != null)
+                {
+                    if (edgeAgent2.SystemModules.ContainsKey("edgeHub"))
+                    {
+                        edgeAgent.SystemModules["edgeHub"].Env = edgeAgent2.SystemModules["edgeHub"].Env;
+                    }
                 }
             }
         }
@@ -234,6 +244,10 @@ namespace Microsoft.Azure.VirtualKubelet.Edge.Provider
                             {
                                 Image = "mcr.microsoft.com/azureiotedge-hub:1.0",
                                 CreateOptions = "{}"
+                            },
+                            Env = new Dictionary<string, EdgeModuleEnv>
+                            {
+
                             }
                         }
                     }
