@@ -6,12 +6,15 @@ namespace Microsoft.Azure.VirtualKubelet.Edge.Provider
     using System.Collections.Generic;
     using Newtonsoft.Json;
 
-    public class EdgeRuntime
+    public class RegistryCredentialsSettings
     {
-        [JsonProperty("type")]
-        public string Type => "docker";
+        [JsonProperty("address")]
+        public string Address { get; set; }
 
-        [JsonProperty("settings")]
-        public EdgeRuntimeSettings Settings { get; set; }
+        [JsonProperty("username")]
+        public string Username { get; set; }
+
+        [JsonProperty("password")]
+        public string Password { get; set; }
     }
 }
