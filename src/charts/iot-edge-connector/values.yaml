@@ -7,7 +7,7 @@ edgeproviderimage:
   secretKey: hub0-cs
 vkimage:
   repository: microsoft/virtual-kubelet
-  tag: latest
+  tag: 0.3
   pullPolicy: Always
 env:
   nodeName: iot-edge-connector-hub0
