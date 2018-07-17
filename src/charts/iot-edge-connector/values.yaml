@@ -7,7 +7,16 @@ edgeproviderimage:
   secretKey: hub0-cs
 vkimage:
   repository: microsoft/virtual-kubelet
-  tag: latest
+  tag: 0.3
   pullPolicy: Always
 env:
   nodeName: iot-edge-connector-hub0
+  nodeTaint:
+# Install Default RBAC roles and bindings
+rbac:
+  install: false
+  serviceAccountName: virtual-kubelet
+  # RBAC api version (currently v1)
+  apiVersion: v1
+  # Cluster role reference
+  roleRef: cluster-admin

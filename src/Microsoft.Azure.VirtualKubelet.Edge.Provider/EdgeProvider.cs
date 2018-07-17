@@ -90,6 +90,29 @@ namespace Microsoft.Azure.VirtualKubelet.Edge.Provider
                 }
             }
         }
+        
+        void PopulateEdgeAgentConfig(Corev1ConfigMapList configMapList, EdgeAgent edgeAgent)
+        {
+            Corev1ConfigMap configMap = configMapList.Items.Where(cm => cm.Metadata.Name == "edgeagent").FirstOrDefault();
+            if (configMap != null && configMap.Data.TryGetValue("desiredProperties", out string desiredPropsJson))
+            {
+                EdgeAgent edgeAgent2 = JsonConvert.DeserializeObject<EdgeAgent>(desiredPropsJson);
+                if (edgeAgent2.Runtime != null)
+                {
+                    if (edgeAgent2.Runtime.Settings.RegistryCredentials != null)
+                    {
+                        edgeAgent.Runtime.Settings.RegistryCredentials = edgeAgent2.Runtime.Settings.RegistryCredentials;
+                    }
+                }
+                if (edgeAgent2.SystemModules != null)
+                {
+                    if (edgeAgent2.SystemModules.ContainsKey("edgeHub"))
+                    {
+                        edgeAgent.SystemModules["edgeHub"].Env = edgeAgent2.SystemModules["edgeHub"].Env;
+                    }
+                }
+            }
+        }
 
         private IList<(string Name, JObject Twin)> PopulateModuleTwins(Corev1ConfigMapList configMapList, ICollection<string> moduleNames)
         {
@@ -132,6 +155,7 @@ namespace Microsoft.Azure.VirtualKubelet.Edge.Provider
                 }
 
                 EdgeAgent edgeAgent = this.GetDefaultEdgeAgentConfig();
+                this.PopulateEdgeAgentConfig(configMapList, edgeAgent);                
                 foreach (Corev1Container container in pod.Spec.Containers)
                 {
                     var module = new EdgeModule
@@ -185,11 +209,15 @@ namespace Microsoft.Azure.VirtualKubelet.Edge.Provider
         {
             Runtime = new EdgeRuntime
             {
-                Settings = new Dictionary<string, string>
+                Settings = new EdgeRuntimeSettings
+                {
+                    MinDockerVersion = "v1.25",
+                    LoggingOptions = "",
+                    RegistryCredentials = new Dictionary<string, RegistryCredentialsSettings>
                     {
-                        { "minDockerVersion", "v1.25" },
-                        { "loggingOptions", "" }
+
                     }
+                }
             },
             SystemModules = new Dictionary<string, EdgeModule>
                 {
@@ -201,7 +229,7 @@ namespace Microsoft.Azure.VirtualKubelet.Edge.Provider
                             RestartPolicy = "always",
                             Settings = new EdgeModuleSettings
                             {
-                                Image = "microsoft/azureiotedge-agent:1.0-preview",
+                                Image = "mcr.microsoft.com/azureiotedge-agent:1.0",
                                 CreateOptions = "{}"
                             }
                         }
@@ -214,8 +242,12 @@ namespace Microsoft.Azure.VirtualKubelet.Edge.Provider
                             RestartPolicy = "always",
                             Settings = new EdgeModuleSettings
                             {
-                                Image = "microsoft/azureiotedge-hub:1.0-preview",
+                                Image = "mcr.microsoft.com/azureiotedge-hub:1.0",
                                 CreateOptions = "{}"
+                            },
+                            Env = new Dictionary<string, EdgeModuleEnv>
+                            {
+
                             }
                         }
                     }

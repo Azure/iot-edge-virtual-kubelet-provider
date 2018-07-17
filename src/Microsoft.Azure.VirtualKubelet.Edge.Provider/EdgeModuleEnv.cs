@@ -6,12 +6,9 @@ namespace Microsoft.Azure.VirtualKubelet.Edge.Provider
     using System.Collections.Generic;
     using Newtonsoft.Json;
 
-    public class EdgeRuntime
+    public class EdgeModuleEnv
     {
-        [JsonProperty("type")]
-        public string Type => "docker";
-
-        [JsonProperty("settings")]
-        public EdgeRuntimeSettings Settings { get; set; }
+        [JsonProperty("value")]
+        public string Value { get; set; }
     }
 }

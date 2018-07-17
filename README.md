@@ -39,7 +39,14 @@ Kubernetes pod annotations and configmaps are used to encode IoT Edge specific i
     ```
     kubectl create secret generic my-secrets \
      --from-literal=hub0-cs='<iot-hub-owner-connection-string>'
+     ```
+    
+    If you using kubectl from cmd.exe or PowerShell, use:
+    
     ```
+    kubectl create secret generic my-secrets --from-literal=hub0-cs="<iot-hub-owner-connection-string>"
+    ```
+    
     > Add a new ```--from-literal``` entry if you want to store multiple keys
     
 1. Use [Helm](https://github.com/kubernetes/helm), a Kubernetes package manager, to install the *iot-edge-connector*
@@ -47,6 +54,11 @@ Kubernetes pod annotations and configmaps are used to encode IoT Edge specific i
     helm install -n hub0 src/charts/iot-edge-connector
     ```
     After a few seconds ```kubectl get nodes``` should show ```iot-edge-connector0``` listed.
+    
+    Use the following command to install the *iot-edge-connector* on Kubernetes clusters using RBAC
+    ```
+    helm install -n hub0 --set rbac.install=true src/charts/iot-edge-connector
+    ```
 
 1. Submit the sample Kubernetes deployment.
     ```

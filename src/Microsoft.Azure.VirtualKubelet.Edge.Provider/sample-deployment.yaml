@@ -37,7 +37,10 @@ spec:
       - name: tempsensor
         image: "microsoft/azureiotedge-simulated-temperature-sensor:1.0-preview"
       nodeSelector:
-        type: virtual-kubelet 
+        type: virtual-kubelet
+      tolerations:
+      - key: azure.com/iotedge
+        effect: NoSchedule
 ---
 kind: ConfigMap
 apiVersion: v1
