@@ -7,14 +7,23 @@ edgeproviderimage:
   secretKey: hub0-cs
 vkimage:
   repository: microsoft/virtual-kubelet
-  tag: 0.3
+  tag: latest
   pullPolicy: Always
 env:
   nodeName: iot-edge-connector-hub0
-  nodeTaint:
+  nodeOsType: Linux
+  monitoredNamespace: ""
+  # 'provider' must be 'web'
+  provider: web
+taint:
+  enabled: true
+  key: virtual-kubelet.io/provider
+  value: iotedge
+  # 'effect' must be 'NoSchedule`, 'PreferNoSchedule' or 'NoExecute'.
+  effect: NoSchedule
 # Install Default RBAC roles and bindings
 rbac:
-  install: false
+  install: true
   serviceAccountName: virtual-kubelet
   # RBAC api version (currently v1)
   apiVersion: v1
