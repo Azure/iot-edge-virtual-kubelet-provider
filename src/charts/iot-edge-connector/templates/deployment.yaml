@@ -18,45 +18,50 @@ spec:
         app: {{ template "edge-provider.name" . }}
         release: {{ .Release.Name }}
     spec:
-      #
-      # Prevent the app pods from being scheduled on
-      # a virtual node.
-      #
-      affinity:
-        nodeAffinity:
-          requiredDuringSchedulingIgnoredDuringExecution:
-            nodeSelectorTerms:
-            - matchExpressions:
-              - key: type
-                operator: NotIn
-                values:
-                - virtual-kubelet
       containers:
-        - name: edgeprovider
-          image: "{{ .Values.edgeproviderimage.repository }}:{{ .Values.edgeproviderimage.tag }}"
-          imagePullPolicy: {{ .Values.edgeproviderimage.pullPolicy }}
-          ports:
-            - containerPort: {{ .Values.edgeproviderimage.port }}
-          env:
-            - name: HUB_CONNECTION_STRING
-              valueFrom:
-                secretKeyRef:
-                  name: {{ .Values.edgeproviderimage.secretsStoreName }}
-                  key: {{ .Values.edgeproviderimage.secretKey }}
-          livenessProbe:
-            httpGet:
-              path: /
-              port: {{ .Values.edgeproviderimage.port }}
-          readinessProbe:
-            httpGet:
-              path: /
-              port: {{ .Values.edgeproviderimage.port }}
-        - name: virtualkubelet
-          image: "{{ .Values.vkimage.repository }}:{{ .Values.vkimage.tag }}"
-          imagePullPolicy: {{ .Values.vkimage.pullPolicy }}
-          env:
-            - name: WEB_ENDPOINT_URL
-              value: http://localhost:{{ .Values.edgeproviderimage.port }}
-          command: ["virtual-kubelet"]
-          args: ["--provider", "web", "--nodename", {{ default "web-provider" .Values.env.nodeName | quote }}, "--taint", {{ default "azure.com/iotedge" .Values.env.nodeTaint | quote }}]
+      - name: edgeprovider
+        image: "{{ .Values.edgeproviderimage.repository }}:{{ .Values.edgeproviderimage.tag }}"
+        imagePullPolicy: {{ .Values.edgeproviderimage.pullPolicy }}
+        ports:
+        - containerPort: {{ .Values.edgeproviderimage.port }}
+        env:
+        - name: HUB_CONNECTION_STRING
+          valueFrom:
+            secretKeyRef:
+              name: {{ .Values.edgeproviderimage.secretsStoreName }}
+              key: {{ .Values.edgeproviderimage.secretKey }}
+        livenessProbe:
+          httpGet:
+            path: /
+            port: {{ .Values.edgeproviderimage.port }}
+        readinessProbe:
+          httpGet:
+            path: /
+            port: {{ .Values.edgeproviderimage.port }}
+      - name: virtualkubelet
+        image: "{{ .Values.vkimage.repository }}:{{ .Values.vkimage.tag }}"
+        imagePullPolicy: {{ .Values.vkimage.pullPolicy }}
+        env:
+        - name: KUBELET_PORT
+          value: "10250"
+        - name: VKUBELET_TAINT_KEY
+          value: {{ .Values.taint.key }}
+        - name: VKUBELET_TAINT_VALUE
+          value: {{ tpl .Values.taint.value $ }}
+        - name: VKUBELET_TAINT_EFFECT
+          value: {{ .Values.taint.effect }}
+        - name: WEB_ENDPOINT_URL
+          value: http://localhost:{{ .Values.edgeproviderimage.port }}
+        command: ["virtual-kubelet"]
+        args: [
+          "--provider", "{{ required "provider is required" .Values.env.provider }}",
+          "--namespace", "{{ .Values.env.monitoredNamespace }}",
+          "--nodename", "{{ required "nodeName is required" .Values.env.nodeName }}",
+          {{- if not .Values.taint.enabled }}
+          "--disable-taint", "true",
+          {{- end }}
+          "--os", "{{ .Values.env.nodeOsType }}"
+        ]
       serviceAccountName: {{ if .Values.rbac.install }} "{{ template "edge-provider.fullname" . }}-service-account" {{ end }}
+      nodeSelector:
+        beta.kubernetes.io/os: linux
