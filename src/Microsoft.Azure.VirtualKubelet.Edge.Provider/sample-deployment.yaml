@@ -39,7 +39,9 @@ spec:
       nodeSelector:
         type: virtual-kubelet
       tolerations:
-      - key: azure.com/iotedge
+      - key: virtual-kubelet.io/provider
+        operator: Equal
+        value: iotedge
         effect: NoSchedule
 ---
 kind: ConfigMap

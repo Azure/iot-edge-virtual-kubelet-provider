@@ -13,12 +13,14 @@ metadata:
 spec:
   containers:
   - name: tempsensor
-    image: "microsoft/azureiotedge-simulated-temperature-sensor:1.0-preview"
+    image: "mcr.microsoft.com/azureiotedge-simulated-temperature-sensor:1.0"
   nodeSelector:
     type: virtual-kubelet
-  tolerations:
-  - key: azure.com/iotedge
-    effect: NoSchedule
+      tolerations:
+      - key: virtual-kubelet.io/provider
+        operator: Equal
+        value: iotedge
+        effect: NoSchedule
 ---
 kind: ConfigMap
 apiVersion: v1
