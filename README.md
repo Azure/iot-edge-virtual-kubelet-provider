@@ -55,7 +55,7 @@ Kubernetes pod annotations and configmaps are used to encode IoT Edge specific i
     ```
     After a few seconds ```kubectl get nodes``` should show ```iot-edge-connector0``` listed.
     
-    Use the following command to install the *iot-edge-connector* on Kubernetes clusters that are not using RBAC and have that enabled
+    Use the following command to install the *iot-edge-connector* on Kubernetes clusters that are not having RBAC enabled
     ```
     helm install -n hub0 --set rbac.install=false src/charts/iot-edge-connector
     ```
