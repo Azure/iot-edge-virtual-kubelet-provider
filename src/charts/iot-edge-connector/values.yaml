@@ -19,7 +19,7 @@ taint:
   enabled: true
   key: virtual-kubelet.io/provider
   value: iotedge
-  # 'effect' must be 'NoSchedule`, 'PreferNoSchedule' or 'NoExecute'.
+  # 'effect' must be 'NoSchedule' or 'NoExecute'.
   effect: NoSchedule
 # Install Default RBAC roles and bindings
 rbac:
