@@ -34,6 +34,8 @@ Kubernetes pod annotations and configmaps are used to encode IoT Edge specific i
 
 ## Install
 
+> Quickstart instructions assume an AKS cluster setup, but can be easily translated to any Kubernetes cluster.
+
 1. Create a Kubernetes secrets store to hold the IoT Hub connection string.
    To find the connection string, navigate to your IoT Hub resource in the Azure portal and click on "Shared access policies" and the "iothubowner" will contain your connection string. 
     ```
@@ -50,12 +52,29 @@ Kubernetes pod annotations and configmaps are used to encode IoT Edge specific i
     > Add a new ```--from-literal``` entry if you want to store multiple keys
     
 1. Use [Helm](https://github.com/kubernetes/helm), a Kubernetes package manager, to install the *iot-edge-connector*
+
+    Initialize Helm in the cluster using the following command. If the command is executed for the first time, it may
+    take upto a minute for all Helm components to become ready
+
+    ```
+    helm init
+    ```
+
+    Use the command below to allow installation in the Kubernetes *default* namespace
+
+    ```
+    kubectl create clusterrolebinding add-on-cluster-admin --clusterrole=cluster-admin --serviceaccount=kube-system:default
+    ```
+    
+    Install the IoT Edge connector.
+
     ```
     helm install -n hub0 src/charts/iot-edge-connector
     ```
     After a few seconds ```kubectl get nodes``` should show ```iot-edge-connector0``` listed.
     
-    Use the following command to install the *iot-edge-connector* on Kubernetes clusters that are not having RBAC enabled
+    AKS clusters have RBAC enabled by default, use the following command to install the *iot-edge-connector* on Kubernetes clusters that don't have RBAC enabled.
+
     ```
     helm install -n hub0 --set rbac.install=false src/charts/iot-edge-connector
     ```
