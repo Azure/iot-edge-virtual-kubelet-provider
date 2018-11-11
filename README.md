@@ -14,7 +14,7 @@ pod specification to an [IoT Edge Deployment](https://docs.microsoft.com/en-us/a
 
 The components provided by this project are depicted in the blue boxes in the diagram above. An IoT Edge provider container is spawned alongside the virtual kubelet container in the same pod. This pod instantiates the IoT Edge Connector virtual node.
 
-The IoT Edge provider handles the kubelet API calls forwared to it by the virtual kubelet. It talks to the Azure IoT hub using the Azure IoT SDKs to submit an equivalent container specification in the form of a edge deployment manifest.
+The IoT Edge provider handles *kubelet* API calls forwarded by the virtual kubelet. It talks to the Azure IoT hub using the Azure IoT SDKs to submit an equivalent container specification in form of an [IoT Edge deployment manifest](https://docs.microsoft.com/en-us/azure/iot-edge/how-to-deploy-monitor).
 
 Kubernetes pod annotations and configmaps are used to encode IoT Edge specific information like module routes and device selector query.
 
@@ -43,7 +43,7 @@ Kubernetes pod annotations and configmaps are used to encode IoT Edge specific i
      --from-literal=hub0-cs='<iot-hub-owner-connection-string>'
      ```
     
-    If you using kubectl from cmd.exe or PowerShell, use:
+    If you using kubectl from cmd.exe or PowerShell, use double-quotes around the connection string:
     
     ```
     kubectl create secret generic my-secrets --from-literal=hub0-cs="<iot-hub-owner-connection-string>"
@@ -71,13 +71,14 @@ Kubernetes pod annotations and configmaps are used to encode IoT Edge specific i
     ```
     helm install -n hub0 src/charts/iot-edge-connector
     ```
-    After a few seconds ```kubectl get nodes``` should show ```iot-edge-connector0``` listed.
     
     AKS clusters have RBAC enabled by default, use the following command to install the *iot-edge-connector* on Kubernetes clusters that don't have RBAC enabled.
 
     ```
     helm install -n hub0 --set rbac.install=false src/charts/iot-edge-connector
     ```
+
+    After a few seconds ```kubectl get nodes``` should show ```iot-edge-connector0``` listed.
 
 1. Submit the sample Kubernetes deployment.
     ```
@@ -98,7 +99,7 @@ There are more interesting use cases for this project like:
 
 * Using a single Kubernetes deployment that controls your cloud-side and device-side software configuration. 
 
-* Creating multiple virtual kubelets (by changing values.yaml in the Helm chart) mapped to different IoT hubs, and scaling the Kubernetes deployment to push the same deployment manifest to edge devices connecting to different hubs.
+* Creating multiple virtual kubelets (by changing values.yaml in the Helm chart) mapped to different IoT hubs, and scaling the Kubernetes deployment to push the same deployment manifest to edge devices connecting to different hubs. Here is a [demo](https://www.youtube.com/watch?v=p-R2mV7Bxuk) of this use case.
 
 Please give us feedback on how the tool is working for you by tweeting us at [@MicrosoftIoT](https://twitter.com/MicrosoftIoT), as well as any feature requests at [Azure IoT Edge Feedback](https://feedback.azure.com/forums/907045-azure-iot-edge/) or GitHub issues for this repo.
 
