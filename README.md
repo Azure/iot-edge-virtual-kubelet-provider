@@ -54,13 +54,13 @@ Kubernetes pod annotations and configmaps are used to encode IoT Edge specific i
 1. Use [Helm](https://github.com/kubernetes/helm), a Kubernetes package manager, to install the *iot-edge-connector*
 
     Initialize Helm in the cluster using the following command. If the command is executed for the first time, it may
-    take upto a minute for all Helm components to become ready
+    take upto a minute for all Helm components to become ready.
 
     ```
     helm init
     ```
 
-    Use the command below to allow installation in the Kubernetes *default* namespace
+    Use the command below to allow installation in the Kubernetes *default* namespace:
 
     ```
     kubectl create clusterrolebinding add-on-cluster-admin --clusterrole=cluster-admin --serviceaccount=kube-system:default
