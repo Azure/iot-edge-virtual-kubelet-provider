@@ -34,7 +34,7 @@ Kubernetes pod annotations and configmaps are used to encode IoT Edge specific i
 
 ## Install
 
-> Quickstart instructions assume an AKS cluster setup, but can be easily translated to any Kubernetes cluster.
+> *Quickstart instructions assume an AKS cluster setup, but can be easily translated to any Kubernetes cluster.*
 
 1. Create a Kubernetes secrets store to hold the IoT Hub connection string.
    To find the connection string, navigate to your IoT Hub resource in the Azure portal and click on "Shared access policies" and the "iothubowner" will contain your connection string. 
