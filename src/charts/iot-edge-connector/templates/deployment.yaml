@@ -12,6 +12,7 @@ spec:
   selector:
     matchLabels:
       app: {{ template "edge-provider.name" . }}
+      release: {{ .Release.Name }}
   template:
     metadata:
       labels:
