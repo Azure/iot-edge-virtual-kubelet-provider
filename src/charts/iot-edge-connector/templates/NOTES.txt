@@ -2,4 +2,4 @@ The edge provider virtual kubelet is getting deployed on your cluster.
 
 To verify that edge provider virtual kubelet has started, run:
 
-  kubectl --namespace={{ .Release.Namespace }} get pods -l "app={{ template "edge-provider.fullname" . }}"
+  kubectl --namespace={{ .Release.Namespace }} get pods -l "app={{ template "edge-provider.name" . }}" -l "release={{ .Release.Name }}"
