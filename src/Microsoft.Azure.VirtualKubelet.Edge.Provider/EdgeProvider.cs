@@ -68,10 +68,48 @@ namespace Microsoft.Azure.VirtualKubelet.Edge.Provider
         {
             // see if there is an entry for this module in the config maps
             Corev1ConfigMap configMap = configMapList.Items.Where(cm => cm.Metadata.Name == moduleName).FirstOrDefault();
-            module.RestartPolicy = configMap?.Data?["restartPolicy"] ?? "on-unhealthy";
-            module.Version = configMap?.Data?["version"] ?? "1.0";
-            module.Status = configMap?.Data?["status"] ?? "running";
-            module.Settings.CreateOptions = configMap?.Data?["createOptions"] ?? "{}";
+            if (configMap != null && configMap.Data !=null)
+            {
+                    if (configMap.Data.TryGetValue("restartPolicy", out string configMapRestartPolicy))
+                    {
+                        module.RestartPolicy = configMapRestartPolicy ?? "on-unhealthy";
+                    }
+                    else
+                    {
+                        module.RestartPolicy = "on-unhealthy";
+                    }
+                    if (configMap.Data.TryGetValue("version", out string configMapVersion))
+                    {
+                        module.Version = configMapVersion ?? "1.0";
+                    }
+                    else
+                    {
+                        module.Version = "1.0";
+                    }
+                    if (configMap.Data.TryGetValue("status", out string configMapStatus))
+                    {
+                        module.Status = configMapStatus ?? "running";
+                    }
+                    else
+                    {
+                        module.Status = "running";
+                    }
+                    if (configMap.Data.TryGetValue("createOptions", out string configMapCreateOptions))
+                    {
+                        module.Settings.CreateOptions = configMapCreateOptions ?? "{}";
+                    }
+                    else
+                    {
+                        module.Settings.CreateOptions = "{}";
+                    }
+            }
+            else
+            {
+                    module.RestartPolicy = "on-unhealthy";
+                    module.Version = "1.0";
+                    module.Status = "running";
+                    module.Settings.CreateOptions = "{}";
+            }
         }
 
         void PopulateEdgeHubConfig(Corev1ConfigMapList configMapList, EdgeHub edgeHub)
@@ -120,9 +158,12 @@ namespace Microsoft.Azure.VirtualKubelet.Edge.Provider
             foreach (string moduleName in moduleNames)
             {
                 Corev1ConfigMap configMap = configMapList.Items.Where(cm => cm.Metadata.Name == moduleName).FirstOrDefault();
-                if (configMap != null && configMap.Data.TryGetValue("desiredProperties", out string desiredPropsJson))
+                if (configMap != null && configMap.Data != null)
                 {
-                    moduleTwins.Add((moduleName, JObject.Parse(desiredPropsJson)));
+                    if(configMap.Data.TryGetValue("desiredProperties", out string desiredPropsJson))
+                    {
+                        moduleTwins.Add((moduleName, JObject.Parse(desiredPropsJson)));
+                    }
                 }
             }
 
