@@ -68,7 +68,7 @@ namespace Microsoft.Azure.VirtualKubelet.Edge.Provider
         {
             // see if there is an entry for this module in the config maps
             Corev1ConfigMap configMap = configMapList.Items.Where(cm => cm.Metadata.Name == moduleName).FirstOrDefault();
-            if (configMap != null && configMap.Data !=null)
+            if (configMap != null && configMap.Data != null)
             {
                     if (configMap.Data.TryGetValue("restartPolicy", out string configMapRestartPolicy))
                     {
