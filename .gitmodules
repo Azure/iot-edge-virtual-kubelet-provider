@@ -1,0 +1,3 @@
+[submodule "iotedge"]
+	path = iotedge
+	url = ../iotedge.git
