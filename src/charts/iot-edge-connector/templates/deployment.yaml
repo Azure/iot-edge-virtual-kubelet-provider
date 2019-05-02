@@ -39,6 +39,13 @@ spec:
           httpGet:
             path: /
             port: {{ .Values.edgeproviderimage.port }}
+        resources:
+          requests:
+            cpu: {{ .Values.edgeproviderimage.requests.cpu }}
+            memory: {{ .Values.edgeproviderimage.requests.memory }}
+          limits:
+            cpu: {{ .Values.edgeproviderimage.limits.cpu }}
+            memory: {{ .Values.edgeproviderimage.limits.memory }}
       - name: virtualkubelet
         image: "{{ .Values.vkimage.repository }}:{{ .Values.vkimage.tag }}"
         imagePullPolicy: {{ .Values.vkimage.pullPolicy }}
@@ -63,6 +70,13 @@ spec:
           {{- end }}
           "--os", "{{ .Values.env.nodeOsType }}"
         ]
+        resources:
+          requests:
+            cpu: {{ .Values.vkimage.requests.cpu }}
+            memory: {{ .Values.vkimage.requests.memory }}
+          limits:
+            cpu: {{ .Values.vkimage.limits.cpu }}
+            memory: {{ .Values.vkimage.limits.memory }}
       serviceAccountName: {{ if .Values.rbac.install }} "{{ template "edge-provider.fullname" . }}-service-account" {{ end }}
       nodeSelector:
         beta.kubernetes.io/os: linux
