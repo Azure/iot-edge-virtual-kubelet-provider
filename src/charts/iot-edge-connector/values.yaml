@@ -5,10 +5,22 @@ edgeproviderimage:
   port: 5000
   secretsStoreName: my-secrets
   secretKey: hub0-cs
+  requests:
+    cpu: 10m
+    memory: 120Mi
+  limits:
+    cpu: 100m
+    memory: 250Mi
 vkimage:
   repository: microsoft/virtual-kubelet
   tag: latest
   pullPolicy: Always
+  requests:
+    cpu: 10m
+    memory: 25Mi
+  limits:
+    cpu: 100m
+    memory: 100Mi
 env:
   nodeName: iot-edge-connector-hub0
   nodeOsType: Linux
