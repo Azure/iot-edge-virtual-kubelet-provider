@@ -35,10 +35,16 @@ spec:
           httpGet:
             path: /
             port: {{ .Values.edgeproviderimage.port }}
+          initialDelaySeconds: 5
+          periodSeconds: 10
+          timeoutSeconds: 10
         readinessProbe:
           httpGet:
             path: /
             port: {{ .Values.edgeproviderimage.port }}
+          initialDelaySeconds: 5
+          periodSeconds: 10
+          timeoutSeconds: 10
         resources:
           requests:
             cpu: {{ .Values.edgeproviderimage.requests.cpu }}
