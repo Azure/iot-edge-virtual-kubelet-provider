@@ -36,7 +36,6 @@ taint:
 # Install Default RBAC roles and bindings
 rbac:
   install: true
-  serviceAccountName: virtual-kubelet
   # RBAC api version (currently v1)
   apiVersion: v1
   # Cluster role reference
