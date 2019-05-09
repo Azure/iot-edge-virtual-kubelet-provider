@@ -11,6 +11,12 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Microsoft.Azure.VirtualKube
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Microsoft.Azure.VirtualKubelet.Edge.Provider", "src\Microsoft.Azure.VirtualKubelet.Edge.Provider\Microsoft.Azure.VirtualKubelet.Edge.Provider.csproj", "{5167D58B-9F7F-42AD-9114-A0F8E747C82D}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "test", "test", "{AA4A1994-C855-4DAA-A44B-F3A8A4E18740}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Microsoft.Azure.VirtualKubelet.Edge.Provider.Test", "test\Microsoft.Azure.VirtualKubelet.Edge.Provider.Test\Microsoft.Azure.VirtualKubelet.Edge.Provider.Test.csproj", "{25707BC4-BE01-46D4-A031-29827EDEC9E2}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Microsoft.Azure.Devices.Edge.Util", "iotedge\edge-util\src\Microsoft.Azure.Devices.Edge.Util\Microsoft.Azure.Devices.Edge.Util.csproj", "{772A7313-8154-439D-B533-80DEA19D6775}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -57,6 +63,30 @@ Global
 		{5167D58B-9F7F-42AD-9114-A0F8E747C82D}.Release|x64.Build.0 = Release|x64
 		{5167D58B-9F7F-42AD-9114-A0F8E747C82D}.Release|x86.ActiveCfg = Release|x86
 		{5167D58B-9F7F-42AD-9114-A0F8E747C82D}.Release|x86.Build.0 = Release|x86
+		{25707BC4-BE01-46D4-A031-29827EDEC9E2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{25707BC4-BE01-46D4-A031-29827EDEC9E2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{25707BC4-BE01-46D4-A031-29827EDEC9E2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{25707BC4-BE01-46D4-A031-29827EDEC9E2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{25707BC4-BE01-46D4-A031-29827EDEC9E2}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{25707BC4-BE01-46D4-A031-29827EDEC9E2}.Debug|x64.Build.0 = Debug|Any CPU
+		{25707BC4-BE01-46D4-A031-29827EDEC9E2}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{25707BC4-BE01-46D4-A031-29827EDEC9E2}.Debug|x86.Build.0 = Debug|Any CPU
+		{25707BC4-BE01-46D4-A031-29827EDEC9E2}.Release|x64.ActiveCfg = Release|Any CPU
+		{25707BC4-BE01-46D4-A031-29827EDEC9E2}.Release|x64.Build.0 = Release|Any CPU
+		{25707BC4-BE01-46D4-A031-29827EDEC9E2}.Release|x86.ActiveCfg = Release|Any CPU
+		{25707BC4-BE01-46D4-A031-29827EDEC9E2}.Release|x86.Build.0 = Release|Any CPU
+		{772A7313-8154-439D-B533-80DEA19D6775}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{772A7313-8154-439D-B533-80DEA19D6775}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{772A7313-8154-439D-B533-80DEA19D6775}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{772A7313-8154-439D-B533-80DEA19D6775}.Release|Any CPU.Build.0 = Release|Any CPU
+		{772A7313-8154-439D-B533-80DEA19D6775}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{772A7313-8154-439D-B533-80DEA19D6775}.Debug|x64.Build.0 = Debug|Any CPU
+		{772A7313-8154-439D-B533-80DEA19D6775}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{772A7313-8154-439D-B533-80DEA19D6775}.Debug|x86.Build.0 = Debug|Any CPU
+		{772A7313-8154-439D-B533-80DEA19D6775}.Release|x64.ActiveCfg = Release|Any CPU
+		{772A7313-8154-439D-B533-80DEA19D6775}.Release|x64.Build.0 = Release|Any CPU
+		{772A7313-8154-439D-B533-80DEA19D6775}.Release|x86.ActiveCfg = Release|Any CPU
+		{772A7313-8154-439D-B533-80DEA19D6775}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -64,6 +94,8 @@ Global
 	GlobalSection(NestedProjects) = preSolution
 		{1A390264-373D-414F-8BB0-745D639DAAAD} = {44515875-8D7C-409C-ADE8-60DFA8C59C59}
 		{5167D58B-9F7F-42AD-9114-A0F8E747C82D} = {44515875-8D7C-409C-ADE8-60DFA8C59C59}
+		{25707BC4-BE01-46D4-A031-29827EDEC9E2} = {AA4A1994-C855-4DAA-A44B-F3A8A4E18740}
+		{772A7313-8154-439D-B533-80DEA19D6775} = {44515875-8D7C-409C-ADE8-60DFA8C59C59}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {D71830F5-3AF5-46B4-8A9E-1DCE4F2253AC}
