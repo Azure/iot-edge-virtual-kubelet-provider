@@ -4,7 +4,7 @@ Azure IoT Edge Connector leverages the [Virtual Kubelet](https://github.com/virt
 virtual Kubernetes node backed by an Azure IoT hub. It translates a Kubernetes
 pod specification to an [IoT Edge Deployment](https://docs.microsoft.com/en-us/azure/iot-edge/module-deployment-monitoring) and submits it to the backing IoT hub. The edge deployment contains a device selector query that controls which subset of edge devices the deployment will be applied to.
 
->*This project does not provide Kubernetes-backed high availability or disaster recovery to IoT Edge deployments. It is about workload deployment to IoT Edge devices using Kubernetes concepts and primitives. The workload itself runs on the edge device(s), and not on the cluster where the IoT Edge connector is installed.
+>This project does not provide Kubernetes-backed high availability or disaster recovery to IoT Edge deployments. It is about workload deployment to IoT Edge devices using Kubernetes concepts and primitives. The workload itself runs on the edge device(s), and not on the cluster where the IoT Edge connector is installed.
 
 # Architecture
 
@@ -36,7 +36,11 @@ Kubernetes pod annotations and configmaps are used to encode IoT Edge specific i
 
 > *Quickstart instructions assume an AKS cluster setup, but can be easily translated to any Kubernetes cluster.*
 
-1. Create a Kubernetes namespace to house the IoT Edge connector: `kubectl create ns hub0`
+1. Create a Kubernetes namespace to house the IoT Edge connector. 
+
+    ```
+    kubectl create ns hub0
+    ```
 
 1. Create a Kubernetes secret in the namespace to hold the IoT Hub connection string.
    To find the connection string, navigate to your IoT Hub resource in the Azure portal and click on "Shared access policies" and the "iothubowner" will contain your connection string. 
@@ -45,7 +49,7 @@ Kubernetes pod annotations and configmaps are used to encode IoT Edge specific i
      --from-literal=hub0-cs='<iot-hub-owner-connection-string>'
      ```
     
-    If you using kubectl from cmd.exe or PowerShell, use double-quotes around the connection string:
+    If using kubectl from cmd.exe or PowerShell, use double-quotes around the connection string:
     
     ```
     kubectl create secret generic my-secrets -n hub0 --from-literal=hub0-cs="<iot-hub-owner-connection-string>"
