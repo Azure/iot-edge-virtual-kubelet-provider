@@ -4,7 +4,7 @@ Azure IoT Edge Connector leverages the [Virtual Kubelet](https://github.com/virt
 virtual Kubernetes node backed by an Azure IoT hub. It translates a Kubernetes
 pod specification to an [IoT Edge Deployment](https://docs.microsoft.com/en-us/azure/iot-edge/module-deployment-monitoring) and submits it to the backing IoT hub. The edge deployment contains a device selector query that controls which subset of edge devices the deployment will be applied to.
 
->This project does **not** provide Kubernetes-backed high availability or disaster recovery to IoT Edge workloads. It is about workload deployment to IoT Edge devices using Kubernetes concepts and primitives. The workload itself runs on the edge device(s), and not on the cluster where the IoT Edge connector is installed.
+>This project does **not** provide Kubernetes-backed high availability or disaster recovery to IoT Edge workloads. It is about workload deployment to IoT Edge devices using Kubernetes concepts and primitives. The workload itself runs on the edge device(s) connected to Azure IoT Hub, and not on the cluster where the IoT Edge connector is installed.
 
 # Architecture
 
