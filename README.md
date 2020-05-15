@@ -4,7 +4,7 @@ Azure IoT Edge Connector leverages the [Virtual Kubelet](https://github.com/virt
 virtual Kubernetes node backed by an Azure IoT hub. It translates a Kubernetes
 pod specification to an [IoT Edge Deployment](https://docs.microsoft.com/en-us/azure/iot-edge/module-deployment-monitoring) and submits it to the backing IoT hub. The edge deployment contains a device selector query that controls which subset of edge devices the deployment will be applied to.
 
->*This project does not provide Kubernetes-backed high availability or disaster recovery to IoT Edge deployments. It is about software deployment and management of the edge devices using Kubernetes concepts and primitives. Ingress to the edge device is not controlled by the Kubernetes load balancer.*
+>This project does **not** provide Kubernetes-backed high availability or disaster recovery to IoT Edge workloads. It is about workload deployment to IoT Edge devices using Kubernetes concepts and primitives. The workload itself runs on the edge device(s) connected to Azure IoT Hub, and not on the cluster where the IoT Edge connector is installed.
 
 # Architecture
 
@@ -28,7 +28,7 @@ Kubernetes pod annotations and configmaps are used to encode IoT Edge specific i
 
 * [kubectl](https://kubernetes.io/docs/tasks/tools/install-kubectl/)
 
-* [Helm](https://github.com/kubernetes/helm)
+* [Helm 3](https://helm.sh/)
 
 * Clone this repo 
 
@@ -36,46 +36,30 @@ Kubernetes pod annotations and configmaps are used to encode IoT Edge specific i
 
 > *Quickstart instructions assume an AKS cluster setup, but can be easily translated to any Kubernetes cluster.*
 
-1. Create a Kubernetes secrets store to hold the IoT Hub connection string.
+1. Create a Kubernetes namespace to house the IoT Edge connector. 
+
+    ```
+    kubectl create ns hub0
+    ```
+
+1. Create a Kubernetes secret in the namespace to hold the IoT Hub connection string.
    To find the connection string, navigate to your IoT Hub resource in the Azure portal and click on "Shared access policies" and the "iothubowner" will contain your connection string. 
     ```
-    kubectl create secret generic my-secrets \
+    kubectl create secret generic my-secrets -n hub0 \
      --from-literal=hub0-cs='<iot-hub-owner-connection-string>'
      ```
     
-    If you using kubectl from cmd.exe or PowerShell, use double-quotes around the connection string:
+    If using kubectl from cmd.exe or PowerShell, use double-quotes around the connection string:
     
     ```
-    kubectl create secret generic my-secrets --from-literal=hub0-cs="<iot-hub-owner-connection-string>"
+    kubectl create secret generic my-secrets -n hub0 --from-literal=hub0-cs="<iot-hub-owner-connection-string>"
     ```
     
-    > Add a new ```--from-literal``` entry if you want to store multiple keys
     
-1. Use [Helm](https://github.com/kubernetes/helm), a Kubernetes package manager, to install the *iot-edge-connector*
-
-    Initialize Helm in the cluster using the following command. If the command is executed for the first time, it may
-    take upto a minute for all Helm components to become ready.
+1. Use [Helm](https://helm.sh), a Kubernetes package manager, to install the *iot-edge-connector*. Ensure you're using Helm 3.
 
     ```
-    helm init
-    ```
-
-    Use the command below to allow installation in the Kubernetes *default* namespace:
-
-    ```
-    kubectl create clusterrolebinding add-on-cluster-admin --clusterrole=cluster-admin --serviceaccount=kube-system:default
-    ```
-    
-    Install the IoT Edge connector.
-
-    ```
-    helm install -n hub0 src/charts/iot-edge-connector
-    ```
-    
-    AKS clusters have RBAC enabled by default, use the following command to install the *iot-edge-connector* on Kubernetes clusters that don't have RBAC enabled.
-
-    ```
-    helm install -n hub0 --set rbac.install=false src/charts/iot-edge-connector
+    helm install iot-edge-connector-hub0 src/charts/iot-edge-connector --namespace hub0
     ```
 
     After a few seconds ```kubectl get nodes``` should show ```iot-edge-connector0``` listed.
